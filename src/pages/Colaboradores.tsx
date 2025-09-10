@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Filter, Download, Plus, MapPin, Building, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,6 +66,7 @@ const empresas = ["Todas", "Vila Nova Tech", "Vila Nova Distribuidora", "Vila No
 const statusOptions = ["Todos", "Ativo", "Inativo", "Férias"];
 
 export default function Colaboradores() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState("Todas");
   const [selectedNivel, setSelectedNivel] = useState("Todos");
@@ -185,7 +187,11 @@ export default function Colaboradores() {
       {/* Lista de Colaboradores */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredColaboradores.map((colaborador) => (
-          <Card key={colaborador.id} className="group cursor-pointer transition-all duration-200 hover:shadow-card hover:-translate-y-1">
+          <Card 
+            key={colaborador.id} 
+            className="group cursor-pointer transition-all duration-200 hover:shadow-card hover:-translate-y-1"
+            onClick={() => navigate(`/colaborador/${colaborador.id}`)}
+          >
             <CardHeader className="pb-3">
               <div className="flex items-start gap-3">
                 <Avatar className="h-12 w-12 border-2 border-primary/10">
