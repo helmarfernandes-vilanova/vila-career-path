@@ -1,4 +1,4 @@
-import { Users, FileText, LayoutDashboard, Settings, Building2, TrendingUp } from "lucide-react";
+import { Users, FileText, LayoutDashboard, Settings, Building2, TrendingUp, BookOpen, Star, AlertCircle } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -31,6 +31,24 @@ const navigationItems = [
     url: "/cargos", 
     icon: FileText,
     description: "Trilhas de carreira" 
+  },
+  { 
+    title: "Trilha de Competências", 
+    url: "/trilha-competencias", 
+    icon: BookOpen,
+    description: "Desenvolvimento" 
+  },
+  { 
+    title: "Avaliação de Desempenho", 
+    url: "/avaliacao-desempenho", 
+    icon: Star,
+    description: "Performance" 
+  },
+  { 
+    title: "Histórico Disciplinar", 
+    url: "/historico-disciplinas", 
+    icon: AlertCircle,
+    description: "Ocorrências" 
   },
   { 
     title: "Relatórios", 
