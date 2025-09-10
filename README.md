@@ -1,73 +1,95 @@
-# Welcome to your Lovable project
+# 🏢 Trilha do Colaborador - Grupo Vila Nova
 
-## Project info
+Sistema moderno de gestão de colaboradores e trilhas de carreira desenvolvido para o Grupo Vila Nova.
 
-**URL**: https://lovable.dev/projects/895890d0-2641-4a67-af96-682b4e12cf7d
+## ✨ Funcionalidades
 
-## How can I edit this code?
+### 📊 Dashboard
+- Visão geral com métricas principais
+- Próximas promoções previstas
+- Distribuição por área com gráficos
+- Ações rápidas para principais funcionalidades
 
-There are several ways of editing your application.
+### 👥 Gestão de Colaboradores
+- Listagem em cards responsivos
+- Filtros avançados por:
+  - Área (TI, Comercial, Logística, etc.)
+  - Cargo e Nível
+  - Empresa do grupo
+  - Status (Ativo, Inativo, Férias)
+- Busca inteligente por nome, cargo ou email
+- Export de dados
+- Perfil detalhado com informações completas
 
-**Use Lovable**
+### 📋 Descrição de Cargos
+- Catálogo completo de cargos por área
+- Trilhas de desenvolvimento por nível
+- Competências obrigatórias e desejáveis
+- Requisitos para promoção
+- Mapeamento de evolução de carreira
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/895890d0-2641-4a67-af96-682b4e12cf7d) and start prompting.
+## 🎨 Design System
 
-Changes made via Lovable will be committed automatically to this repo.
+### Cores Principais
+- **Primary**: #089792 (Verde-azulado corporativo)
+- **Sidebar**: Gradiente baseado na cor primária
+- Paleta completa com tokens semânticos
 
-**Use your preferred IDE**
+### Características
+- Layout totalmente responsivo
+- Sidebar colapsível com ícones intuitivos
+- Cards com hover effects e sombras elegantes
+- Navegação breadcrumb
+- Tipografia profissional
+- Suporte a modo claro/escuro
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠 Tecnologias
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + Design System customizado
+- **Components**: shadcn/ui (customizados)
+- **Icons**: Lucide React
+- **Routing**: React Router DOM
+- **Build**: Vite
 
-Follow these steps:
+## 🚀 Como usar
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+# Instalar dependências
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Executar em desenvolvimento
 npm run dev
+
+# Build para produção
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 📱 Responsividade
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+O sistema foi desenvolvido com mobile-first e funciona perfeitamente em:
+- 📱 Smartphones (320px+)
+- 📟 Tablets (768px+)
+- 💻 Desktop (1024px+)
+- 🖥 Telas grandes (1440px+)
 
-**Use GitHub Codespaces**
+## 🔄 Próximas Funcionalidades
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- [ ] Autenticação e controle de acesso
+- [ ] Integração com API do ERP
+- [ ] Sistema de avaliações
+- [ ] Relatórios avançados
+- [ ] Notificações push
+- [ ] Histórico de mudanças
 
-## What technologies are used for this project?
+## 🏢 Sobre o Grupo Vila Nova
 
-This project is built with:
+Sistema desenvolvido especificamente para as necessidades de RH do Grupo Vila Nova, considerando:
+- Múltiplas empresas do grupo
+- Estrutura organizacional complexa
+- Necessidade de clareza nas trilhas de carreira
+- Gestão eficiente de talentos
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/895890d0-2641-4a67-af96-682b4e12cf7d) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+**Desenvolvido com ❤️ para o Grupo Vila Nova**
