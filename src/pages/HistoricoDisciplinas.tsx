@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Search, Plus, AlertCircle, FileText, Calendar, Filter, Eye, Download } from "lucide-react";
+import jsPDF from 'jspdf';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -132,6 +133,127 @@ export default function HistoricoDisciplinas() {
       case "Elogio": return FileText;
       default: return FileText;
     }
+  };
+
+  const generatePDF = (ocorrencia: any) => {
+    const doc = new jsPDF();
+    
+    // Configurar fonte
+    doc.setFont('helvetica');
+    
+    // Cabeçalho
+    doc.setFontSize(20);
+    doc.setTextColor(8, 151, 146); // Cor #089792
+    doc.text('GRUPO VILA NOVA', 20, 25);
+    
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Detalhes da Ocorrência - ${ocorrencia.tipo}`, 20, 40);
+    
+    // Linha separadora
+    doc.setDrawColor(200, 200, 200);
+    doc.line(20, 45, 190, 45);
+    
+    let yPosition = 60;
+    
+    // Informações do colaborador
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('COLABORADOR', 20, yPosition);
+    
+    doc.setFont('helvetica', 'normal');
+    yPosition += 8;
+    doc.text(`Nome: ${ocorrencia.colaborador.nome}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Matrícula: ${ocorrencia.colaborador.matricula}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Cargo: ${ocorrencia.colaborador.cargo}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Área: ${ocorrencia.colaborador.area}`, 20, yPosition);
+    yPosition += 15;
+    
+    // Informações da ocorrência
+    doc.setFont('helvetica', 'bold');
+    doc.text('DETALHES DA OCORRÊNCIA', 20, yPosition);
+    
+    doc.setFont('helvetica', 'normal');
+    yPosition += 8;
+    doc.text(`Data da Ocorrência: ${new Date(ocorrencia.dataOcorrencia).toLocaleDateString('pt-BR')}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Tipo: ${ocorrencia.tipo}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Categoria: ${ocorrencia.categoria}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Status: ${ocorrencia.status}`, 20, yPosition);
+    yPosition += 6;
+    doc.text(`Responsável: ${ocorrencia.responsavel}`, 20, yPosition);
+    yPosition += 15;
+    
+    // Descrição
+    doc.setFont('helvetica', 'bold');
+    doc.text('DESCRIÇÃO', 20, yPosition);
+    
+    doc.setFont('helvetica', 'normal');
+    yPosition += 8;
+    const descricaoLines = doc.splitTextToSize(ocorrencia.descricao, 170);
+    doc.text(descricaoLines, 20, yPosition);
+    yPosition += (descricaoLines.length * 6) + 10;
+    
+    // Medida tomada
+    doc.setFont('helvetica', 'bold');
+    doc.text('MEDIDA TOMADA', 20, yPosition);
+    
+    doc.setFont('helvetica', 'normal');
+    yPosition += 8;
+    const medidaLines = doc.splitTextToSize(ocorrencia.medidaTomada, 170);
+    doc.text(medidaLines, 20, yPosition);
+    yPosition += (medidaLines.length * 6) + 10;
+    
+    // Observações
+    if (ocorrencia.observacoes) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('OBSERVAÇÕES', 20, yPosition);
+      
+      doc.setFont('helvetica', 'normal');
+      yPosition += 8;
+      const observacoesLines = doc.splitTextToSize(ocorrencia.observacoes, 170);
+      doc.text(observacoesLines, 20, yPosition);
+      yPosition += (observacoesLines.length * 6) + 10;
+    }
+    
+    // Prazo de validade
+    if (ocorrencia.prazoValidade) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('PRAZO DE VALIDADE', 20, yPosition);
+      
+      doc.setFont('helvetica', 'normal');
+      yPosition += 8;
+      doc.text(`Esta ocorrência tem validade até ${new Date(ocorrencia.prazoValidade).toLocaleDateString('pt-BR')}`, 20, yPosition);
+      yPosition += 15;
+    }
+    
+    // Documentos
+    if (ocorrencia.documentos && ocorrencia.documentos.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('DOCUMENTOS ANEXOS', 20, yPosition);
+      
+      doc.setFont('helvetica', 'normal');
+      yPosition += 8;
+      ocorrencia.documentos.forEach((doc_name: string) => {
+        doc.text(`• ${doc_name}`, 25, yPosition);
+        yPosition += 6;
+      });
+      yPosition += 10;
+    }
+    
+    // Rodapé
+    doc.setFontSize(8);
+    doc.setTextColor(128, 128, 128);
+    doc.text(`Documento gerado em ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`, 20, 280);
+    
+    // Salvar PDF
+    const fileName = `ocorrencia_${ocorrencia.tipo.toLowerCase()}_${ocorrencia.colaborador.nome.replace(/\s+/g, '_').toLowerCase()}_${ocorrencia.dataOcorrencia.replace(/-/g, '')}.pdf`;
+    doc.save(fileName);
   };
 
   return (
@@ -315,12 +437,27 @@ export default function HistoricoDisciplinas() {
                         </DialogTrigger>
                         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                           <DialogHeader>
-                            <DialogTitle className="text-xl">
-                              Detalhes da Ocorrência - {selectedOcorrencia?.tipo}
-                            </DialogTitle>
-                            <DialogDescription>
-                              {selectedOcorrencia?.colaborador.nome} • {selectedOcorrencia?.colaborador.matricula}
-                            </DialogDescription>
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <DialogTitle className="text-xl">
+                                  Detalhes da Ocorrência - {selectedOcorrencia?.tipo}
+                                </DialogTitle>
+                                <DialogDescription>
+                                  {selectedOcorrencia?.colaborador.nome} • {selectedOcorrencia?.colaborador.matricula}
+                                </DialogDescription>
+                              </div>
+                              {selectedOcorrencia && (
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={() => generatePDF(selectedOcorrencia)}
+                                  className="flex items-center gap-2"
+                                >
+                                  <Download className="h-4 w-4" />
+                                  Gerar PDF
+                                </Button>
+                              )}
+                            </div>
                           </DialogHeader>
                           
                           {selectedOcorrencia && (
